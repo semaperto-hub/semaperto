@@ -20,6 +20,10 @@
      categoria da outra lista), marca, nome, preco, economia (pode
      apagar essa linha se não for comparar) e link (seu link de
      afiliado real).
+     Pra "imagem": no anúncio do Mercado Livre, clique com o botão
+     direito na foto principal > "Copiar endereço da imagem" > cole
+     essa URL aqui. Não precisa baixar nem fazer upload de nada. Se
+     deixar em branco, o card mostra "sem foto" no lugar.
 
   2. ADICIONAR CATEGORIA: ache a lista "const categorias = [...]".
      Copie um bloco { ... } inteiro, cole antes do "];", troque id
@@ -228,6 +232,25 @@
     border: 1.5px solid var(--cimento);
     background: var(--concreto);
   }
+  .tag-produto .foto-produto {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--concreto-2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tag-produto .foto-produto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tag-produto .foto-produto .sem-foto {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--grafite-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
   .tag-produto .marca-produto {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
@@ -342,17 +365,16 @@
 
   // PRODUTOS — categoriaId precisa bater com o "id" de uma categoria acima
   const produtos = [
-    { categoriaId: 'misturadores-registros', marca: 'Deca',        nome: 'Torneira Mistura Monocomando Deca Level Gourmet 2275.c',      preco: 'R$ 1395,30', economia: 'OFF -53%', link: 'https://meli.la/2qq6736' },
-    { categoriaId: 'misturadores-registros', marca: 'Deca',        nome: 'Torneira de cozinha monocomando DeckCasa DC-6021 cromado',      preco: 'R$ 265,99', economia: 'OFF -5%', link: 'https://meli.la/1cBzp4i' },
-    { categoriaId: 'chuveiros-duchas',       marca: 'Lorenzetti',  nome: 'Chuveiro eletrônico 127V/220V',                     preco: 'R$ 112,00', economia: 'EXEMPLO -28%', link: '#' },
-    { categoriaId: 'torneiras',              marca: 'Docol',       nome: 'Torneira gourmet bica alta para cozinha',           preco: 'R$ 156,00', economia: 'EXEMPLO -30%', link: '#' },
-    { categoriaId: 'cubas',                  marca: 'Tramontina',  nome: 'Cuba de embutir em inox 34cm',                      preco: 'R$ 99,90',  economia: 'EXEMPLO -25%', link: '#' },
-    { categoriaId: 'loucas-sanitarias',      marca: 'Deca',        nome: 'Vaso sanitário com caixa acoplada',                 preco: 'R$ 349,00', economia: 'EXEMPLO -22%', link: '#' },
-    { categoriaId: 'acabamentos-eletricos',  marca: 'Tramontina',  nome: 'Kit espelho + tomada 2P+T branco',                  preco: 'R$ 24,90',  economia: 'EXEMPLO -19%', link: '#' },
-    { categoriaId: 'eletronicos-automacao',  marca: 'Intelbras',   nome: 'Fechadura eletrônica de sobrepor com senha',        preco: 'R$ 349,00', economia: 'EXEMPLO -20%', link: '#' },
-    { categoriaId: 'pinturas-especiais',     marca: 'Suvinil',     nome: 'Tinta com efeito cimento queimado, 3,6L',           preco: 'R$ 189,00', economia: 'EXEMPLO -15%', link: '#' },
-    { categoriaId: 'eletrica',               marca: 'Genérico',    nome: 'Disjuntor DIN monopolar 20A',                       preco: 'R$ 14,90',  economia: 'EXEMPLO -18%', link: '#' },
-    { categoriaId: 'hidraulica',             marca: 'Tigre',       nome: 'Joelho 90° soldável 25mm (kit com 10 unidades)',    preco: 'R$ 12,90',  economia: 'EXEMPLO -24%', link: '#' },
+    { categoriaId: 'misturadores-registros', marca: 'Deca', https://http2.mlstatic.com/D_NQ_NP_2X_714288-MLB105439051115_012026-F-torneira-mistura-monocomando-deca-level-gourmet-2275c.webp: '',        nome: 'Torneira misturador monocomando deca level gourmet',      preco: 'R$ 1395,30', economia: 'OFF -53%', link: 'https://meli.la/2qq6736' },
+    { categoriaId: 'chuveiros-duchas',       marca: 'Lorenzetti', imagem: '',  nome: 'Chuveiro eletrônico 127V/220V',                     preco: 'R$ 112,00', economia: 'EXEMPLO -28%', link: '#' },
+    { categoriaId: 'torneiras',              marca: 'Docol', imagem: '',       nome: 'Torneira gourmet bica alta para cozinha',           preco: 'R$ 156,00', economia: 'EXEMPLO -30%', link: '#' },
+    { categoriaId: 'cubas',                  marca: 'Tramontina', imagem: '',  nome: 'Cuba de embutir em inox 34cm',                      preco: 'R$ 99,90',  economia: 'EXEMPLO -25%', link: '#' },
+    { categoriaId: 'loucas-sanitarias',      marca: 'Deca', imagem: '',        nome: 'Vaso sanitário com caixa acoplada',                 preco: 'R$ 349,00', economia: 'EXEMPLO -22%', link: '#' },
+    { categoriaId: 'acabamentos-eletricos',  marca: 'Tramontina', imagem: '',  nome: 'Kit espelho + tomada 2P+T branco',                  preco: 'R$ 24,90',  economia: 'EXEMPLO -19%', link: '#' },
+    { categoriaId: 'eletronicos-automacao',  marca: 'Intelbras', imagem: '',   nome: 'Fechadura eletrônica de sobrepor com senha',        preco: 'R$ 349,00', economia: 'EXEMPLO -20%', link: '#' },
+    { categoriaId: 'pinturas-especiais',     marca: 'Suvinil', imagem: '',     nome: 'Tinta com efeito cimento queimado, 3,6L',           preco: 'R$ 189,00', economia: 'EXEMPLO -15%', link: '#' },
+    { categoriaId: 'eletrica',               marca: 'Genérico', imagem: '',    nome: 'Disjuntor DIN monopolar 20A',                       preco: 'R$ 14,90',  economia: 'EXEMPLO -18%', link: '#' },
+    { categoriaId: 'hidraulica',             marca: 'Tigre', imagem: '',       nome: 'Joelho 90° soldável 25mm (kit com 10 unidades)',    preco: 'R$ 12,90',  economia: 'EXEMPLO -24%', link: '#' },
   ];
 
   // ======================================================
@@ -375,6 +397,7 @@
       const cardsHtml = produtosDaCategoria.length
         ? produtosDaCategoria.map(p => `
             <article class="tag-produto">
+              <div class="foto-produto">${p.imagem ? `<img src="${p.imagem}" alt="${p.nome}" loading="lazy">` : `<span class="sem-foto">sem foto</span>`}</div>
               <span class="marca-produto">${p.marca}</span>
               <h3>${p.nome}</h3>
               <div class="linha-preco">
